@@ -1,0 +1,7 @@
+{
+  "name": "LocationX",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
