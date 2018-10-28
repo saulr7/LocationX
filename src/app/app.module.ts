@@ -12,17 +12,24 @@ import { SubCategoriasPage } from "../pages/sub-categorias/sub-categorias";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
-import { Firebase } from '@ionic-native/firebase';
 
-export const config = {
+
+//Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from "@angular/fire/storage";
+
+
+const firebaseConfig = {
   apiKey: "AIzaSyAX78S4dACcaRm3Jzsdq--kB9WeDVLITPE",
   authDomain: "locationx-72d68.firebaseapp.com",
   databaseURL: "https://locationx-72d68.firebaseio.com",
   projectId: "locationx-72d68",
   storageBucket: "locationx-72d68.appspot.com",
   messagingSenderId: "758432149096"
+  
 };
-//firebase.initializeApp(config);
 
 
 @NgModule({
@@ -37,6 +44,10 @@ export const config = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,6 +61,8 @@ export const config = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AngularFireDatabase,
+    AngularFireStorageModule,
     FirebaseServiceProvider
   ]
 })

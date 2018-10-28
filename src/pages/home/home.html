@@ -9,42 +9,16 @@
 
 <ion-content class="card-background-page">
 
-  <ion-card (click)="HizoClick()">
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>
-    <div class="card-title">São Paulo</div>
-    <div class="card-subtitle">41 Listings</div>
+  <ion-card *ngFor="let rubro of rubros" (click)="ver_rubro(rubro)">
+    
+    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png"/> 
+    <div  class="card-title">{{rubro.Nombre}}</div>
+    <div class="card-subtitle">{{rubro.Descripcion}}</div>
   </ion-card>
 
-  <ion-card>
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png"/>
-    <div class="card-title">Amsterdam</div>
-    <div class="card-subtitle">64 Listings</div>
-  </ion-card>
+  <!-- https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png -->
 
-  <ion-card onclick="HizoClick()">
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>
-    <div class="card-title">São Paulo</div>
-    <div class="card-subtitle">41 Listings</div>
-  </ion-card>
-
-  <ion-card>
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png"/>
-    <div class="card-title">Amsterdam</div>
-    <div class="card-subtitle">64 Listings</div>
-  </ion-card>
-
-  <ion-card>
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>
-    <div class="card-title">São Paulo</div>
-    <div class="card-subtitle">41 Listings</div>
-  </ion-card>
-
-  <ion-card>
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png"/>
-    <div class="card-title">Amsterdam</div>
-    <div class="card-subtitle">64 Listings</div>
-  </ion-card>
-
+  <!-- https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png -->
 
 
 </ion-content>

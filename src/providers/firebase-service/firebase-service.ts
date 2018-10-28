@@ -1,17 +1,49 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 
-/*
-  Generated class for the FirebaseServiceProvider provider.
+//Firebase
+import { AngularFireDatabase } from '@angular/fire/database/database';
+import { AngularFireStorage } from "@angular/fire/storage/storage";
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+
 @Injectable()
 export class FirebaseServiceProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello FirebaseServiceProvider Provider');
+
+  constructor(   public afDB: AngularFireDatabase,
+  public atST:AngularFireStorage ) 
+  {   }
+  
+  public ObtenerRubros()
+  {
+    //return this.afDB.list('rubros');
+    return this.afDB.list('RubrosV2');
   }
 
+
+  public ObtenerSubRubros(subRubro)
+  {
+    //return this.afDB.list('rubros/'+subRubro);
+    return this.afDB.list('SubRubros/'+subRubro);
+  }
+
+  public ObtenerNegocios(negocio)
+  {
+    //return this.afDB.list('rubros/'+"Educación/"+negocio);
+    return this.afDB.list('Negocios/'+negocio);
+  }
+
+  public ObtenerUrl(FileName)
+  {
+    this.atST.storage.ref('Img/Rubros/Finanzas.jpg').getDownloadURL().then(function(data){
+      return data;
+    })
+  }
+
+
+  public NuevaUrl(Archivo)
+  {
+    return this.atST.storage.ref('Img/Rubros/Finanzas.jpg');
+  }
+  
 }

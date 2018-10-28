@@ -2,12 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NegociosPage } from "../negocios/negocios";
 
-/**
- * Generated class for the SubCategoriasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { FirebaseServiceProvider } from "../../providers/firebase-service/firebase-service";
+
 
 @IonicPage()
 @Component({
@@ -17,17 +13,49 @@ import { NegociosPage } from "../negocios/negocios";
 export class SubCategoriasPage {
 
   negociosPage = NegociosPage
+  subRubroNombre:string;
+  subRubros:any;
+  negocios:any;
+  selectedRubro:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public firebaseService:FirebaseServiceProvider) {
+    
+      this.subRubroNombre = navParams.get('Nombre');
+
+      this.firebaseService.ObtenerSubRubros(this.subRubroNombre).valueChanges().subscribe(subRubros =>
+        {
+          this.subRubros = subRubros;
+        })
+        //this.getBussiness();
+   
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SubCategoriasPage');
-  }
-
-  ver_negocio()
+  ver_negocio(subRubro)
   {
-    this.navCtrl.push(this.negociosPage);
+    this.navCtrl.push(this.negociosPage, {subRubro:subRubro.Nombre});
   }
+
+  getItems(ev: any) 
+  {
+    console.log("Hizo click")
+  }
+
+  getBussiness() 
+  {
+    if (this.selectedRubro == "") {
+      this.selectedRubro = this.subRubros[0].Nombre;
+      console.log("Rubro")
+      console.log(this.subRubros[0].Nombre)
+    }
+
+    this.firebaseService.ObtenerNegocios(this.selectedRubro).valueChanges().subscribe(negocios =>
+      {    
+        this.negocios = negocios
+        console.log(this.negocios)
+      })
+    }
+
+
 
 }

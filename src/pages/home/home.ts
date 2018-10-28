@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-//import { NegociosPage } from "../negocios/negocios";
+import { FirebaseServiceProvider } from "../../providers/firebase-service/firebase-service";
 import { SubCategoriasPage } from "../sub-categorias/sub-categorias";
 
-import { Firebase } from '@ionic-native/firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'page-home',
@@ -11,23 +11,34 @@ import { Firebase } from '@ionic-native/firebase';
 })
 export class HomePage {
 
-  //negociosPage = NegociosPage;
+  rubros:any; 
   subCategoriasPage = SubCategoriasPage;
 
-  firebase: Firebase;
+  constructor(public navCtrl: NavController,
+  public fireBaseService: FirebaseServiceProvider
+  )
+    {
+      fireBaseService.ObtenerRubros().valueChanges().subscribe(rubro =>
+      {
+        this.rubros = rubro;
+      });
+    }
 
-  constructor(public navCtrl: NavController
-    ) {
-
-  }
-
-  HizoClick()
+  ver_rubro(rubro)
   {
-  //   this.firebase.getToken()
-  // .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
-  // .catch(error => console.error('Error getting token', error));
-    //console.table(this.firebase.getToken());
-    this.navCtrl.push(this.subCategoriasPage);
+     this.navCtrl.push(SubCategoriasPage,{Nombre: rubro.Nombre});
   }
+
+  ObtenerUrl(NombreArchivo)
+  {
+
+    return this.fireBaseService.ObtenerUrl(NombreArchivo)
+  }
+
+  getIcon()
+  {
+    return "https://firebasestorage.googleapis.com/v0/b/locationx-72d68.appspot.com/o/Img%2FRubros%2FFinanzas.jpg?alt=media&token=f6fb26d6-1fa6-40b1-881f-6a5ab96b29dc";
+  }
+  
 
 }
