@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NegociosPage } from "../negocios/negocios";
 
+import { LoadingController  } from "ionic-angular";
 import { FirebaseServiceProvider } from "../../providers/firebase-service/firebase-service";
 
 
@@ -18,15 +19,17 @@ export class SubCategoriasPage {
   negocios:any;
   selectedRubro:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public firebaseService:FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController
+    ,public navParams: NavParams
+    ,public firebaseService:FirebaseServiceProvider
+    ,public loadingCtrl:LoadingController
+  ) {
     
       this.subRubroNombre = navParams.get('Nombre');
 
-      this.firebaseService.ObtenerSubRubros(this.subRubroNombre).valueChanges().subscribe(subRubros =>
-        {
-          this.subRubros = subRubros;
-        })
+
+      this.MostrarSubRubros();
+
         //this.getBussiness();
    
   }
@@ -56,6 +59,20 @@ export class SubCategoriasPage {
       })
     }
 
+
+    MostrarSubRubros()
+     {
+        let loading = this.loadingCtrl.create({
+          content: 'Por favor espere...'
+        });
+        loading.present();
+      
+        this.firebaseService.ObtenerSubRubros(this.subRubroNombre).valueChanges().subscribe(subRubros =>
+          {
+            this.subRubros = subRubros;
+            loading.dismiss();
+          });
+      }
 
 
 }

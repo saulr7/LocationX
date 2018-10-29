@@ -7,12 +7,88 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>negocio-descripcion</ion-title>
+    <ion-title>{{Nombre}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
+
+    <ion-card>
+        <!-- <img src="{{UrlImagen}}"/> -->
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>
+        <ion-card-content>
+          <ion-card-title>
+              {{Nombre}}
+            </ion-card-title>
+          <p>
+          {{Descripcion}}
+          </p>
+
+          <ion-list>
+              <ion-item>
+                <ion-icon name="mail" item-start></ion-icon>
+                  {{Correo}}
+              </ion-item>
+              <ion-item>
+                  <ion-icon name="call" item-start></ion-icon>
+                    {{Telefono}}
+              </ion-item>
+              <ion-item>
+                  <ion-icon name="compass" item-start></ion-icon>
+                    {{PaginaWeb}}
+              </ion-item>
+          </ion-list>      
+
+        </ion-card-content>
+      </ion-card>
+
+      
+
+      <div padding>
+          <ion-segment [(ngModel)]="pet">
+            <ion-segment-button value="kittens">
+              Sucursales
+            </ion-segment-button>
+            <ion-segment-button value="puppies">
+              Horarios
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+        
+        <div [ngSwitch]="pet">
+          <ion-list *ngSwitchCase="'puppies'">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-sf.png">
+              </ion-thumbnail>
+              <h2>Ruby</h2>
+            </ion-item>
+            ...
+          </ion-list>
+        
+          <ion-list *ngSwitchCase="'kittens'">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-sf.png">
+              </ion-thumbnail>
+              <h2>Luna</h2>
+            </ion-item>
+            <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-sf.png">
+                </ion-thumbnail>
+                <h2>Luna</h2>
+              </ion-item>
+              <ion-item>
+                  <ion-thumbnail item-start>
+                    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-sf.png">
+                  </ion-thumbnail>
+                  <h2>Luna</h2>
+                </ion-item>                          
+            ...
+          </ion-list>
+        </div>
 
 </ion-content>

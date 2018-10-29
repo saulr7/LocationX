@@ -10,9 +10,12 @@ import { AngularFireStorage } from "@angular/fire/storage/storage";
 export class FirebaseServiceProvider {
 
 
-  constructor(   public afDB: AngularFireDatabase,
-  public atST:AngularFireStorage ) 
-  {   }
+  constructor(   
+      public afDB: AngularFireDatabase
+    , public atST:AngularFireStorage ) 
+  {   
+    
+  }
   
   public ObtenerRubros()
   {
@@ -46,4 +49,9 @@ export class FirebaseServiceProvider {
     return this.atST.storage.ref('Img/Rubros/Finanzas.jpg');
   }
   
+  public ObtenerEntidad(entidad)
+  {
+    return this.afDB.list("Entidades/"+entidad);
+
+  }
 }

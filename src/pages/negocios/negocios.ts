@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from "../../providers/firebase-service/firebase-service";
 import { LoadingController } from 'ionic-angular';
-
+import { NegocioDescripcionPage } from "../../pages/negocio-descripcion/negocio-descripcion";
 
 @IonicPage()
 @Component({
@@ -14,6 +14,8 @@ export class NegociosPage {
   negocios:any;
 
   subRubroNombre:string;
+
+  negocioDescripcionPage= NegocioDescripcionPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams
     ,public firebaseService:FirebaseServiceProvider
@@ -28,10 +30,9 @@ export class NegociosPage {
     
   }
 
-  ver_negoio()
+  ver_negocio(negocio)
   {
-    var valores = this.firebaseService.ObtenerNegocios("Salud");
-    console.log(valores)
+    this.navCtrl.push(this.negocioDescripcionPage,{negocio:negocio});
   }
 
   getItems(ev: any) 
@@ -57,6 +58,5 @@ export class NegociosPage {
       });
   }
   
-
 
 }

@@ -11,8 +11,8 @@
 
   <ion-card *ngFor="let rubro of rubros" (click)="ver_rubro(rubro)">
     
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png"/> 
-    <div  class="card-title">{{rubro.Nombre}}</div>
+    <img src="{{rubro.UrlImagen}}"/> 
+    <div  class="card-title"> {{rubro.Nombre}}</div>
     <div class="card-subtitle">{{rubro.Descripcion}}</div>
   </ion-card>
 
