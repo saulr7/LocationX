@@ -54,4 +54,9 @@ export class FirebaseServiceProvider {
     return this.afDB.list("Entidades/"+entidad);
 
   }
+
+  public ObteneSucursales(entidad)
+  {
+    return this.afDB.list("Sucursales/"+entidad);
+  }
 }

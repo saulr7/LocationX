@@ -17,11 +17,13 @@
             <ion-option *ngFor="let subRubro of subRubros">{{subRubro.Nombre}}</ion-option>
         </ion-select>
     </ion-item> --> 
-    <ion-searchbar (ionInput)="getItems($event)">
+
+    <!-- <ion-searchbar (ionInput)="getItems($event)">
       
     </ion-searchbar>
+ -->
 
-
+<!-- 
     <ion-list >
 
       <ion-item>
@@ -31,7 +33,10 @@
         </ion-select>  
       </ion-item>
     </ion-list>
-  
+   -->
+   <h2 text-center>
+     Sub Rubros
+   </h2>
     <ion-list >
   
     <button ion-item *ngFor="let subRubro of subRubros" (click)="ver_negocio(subRubro)">

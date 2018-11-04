@@ -4,7 +4,7 @@ import { FirebaseServiceProvider } from "../../providers/firebase-service/fireba
 import { SubCategoriasPage } from "../sub-categorias/sub-categorias";
 
 import { LoadingController } from "ionic-angular";
-import { AngularFireDatabase } from 'angularfire2/database';
+// import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'page-home',

@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { FirebaseServiceProvider } from "../../providers/firebase-service/firebase-service";
 
-/**
- * Generated class for the NegocioDescripcionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -25,6 +19,8 @@ export class NegocioDescripcionPage {
   PaginaWeb:string;
   Telefono:string;
   UrlImagen:string;
+  Sucursales:any;
+  Favorito:string;
 
   constructor(public navCtrl: NavController
       , public navParams: NavParams
@@ -33,6 +29,9 @@ export class NegocioDescripcionPage {
     {
       this.negocio = this.navParams.get("negocio");  
       this.MostrarEntidad();
+      this.MostrarSucursales();
+      this.Favorito = "EsFavorito"
+
     }
 
     MostrarEntidad()
@@ -48,6 +47,15 @@ export class NegocioDescripcionPage {
         this.Telefono  = this.entidad.Telefono;
         this.UrlImagen  = this.entidad.UrlImagen;
       
+      })
+    }
+
+    MostrarSucursales()
+    {
+      this.fireBaseService.ObteneSucursales(this.negocio.Entidad).valueChanges().subscribe(entidad =>
+      {
+        console.log(entidad)
+        this.Sucursales = entidad;
       })
     }
 
