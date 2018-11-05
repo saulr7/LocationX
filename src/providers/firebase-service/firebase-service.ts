@@ -59,4 +59,15 @@ export class FirebaseServiceProvider {
   {
     return this.afDB.list("Sucursales/"+entidad);
   }
+
+  public AgregarFavorito(entidad)
+  {
+    return this.afDB.list("Favoritos/usuario2").set(entidad.Entidad,entidad);
+  }
+
+  public QuitarFavorito(entidad)
+  {
+    return this.afDB.list("Favoritos/usuario2").remove(entidad.Entidad);
+  }
+
 }
