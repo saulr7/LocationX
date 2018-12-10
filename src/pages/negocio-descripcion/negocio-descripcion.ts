@@ -16,6 +16,8 @@ export class NegocioDescripcionPage {
 
   negocio:any;
   entidad:any;
+  favoritos:any;
+
   Nombre:string;
   Descripcion:string;
   Correo:string;
@@ -24,6 +26,8 @@ export class NegocioDescripcionPage {
   UrlImagen:string;
   Sucursales:any;
   Favorito:string;
+  Guardar:string;
+
 
   constructor(public navCtrl: NavController
       , public navParams: NavParams
@@ -35,8 +39,9 @@ export class NegocioDescripcionPage {
       this.negocio = this.navParams.get("negocio");  
       this.MostrarEntidad();
       this.MostrarSucursales();
-      this.Favorito = "EsFavorito"
-
+      this.EsFavorito()
+      this.Guardar = "Guardado";
+      this.Guardar = "NoGuardado";
     }
 
     MostrarEntidad()
@@ -50,7 +55,6 @@ export class NegocioDescripcionPage {
       this.fireBaseService.ObtenerEntidad(this.negocio.Entidad).valueChanges().subscribe(entidad =>
       {
         this.entidad = entidad[0];
-        
         this.Nombre = this.entidad.Nombre;
         this.Descripcion  = this.entidad.Descripcion;
         this.Correo  = this.entidad.Correo;
@@ -78,18 +82,39 @@ export class NegocioDescripcionPage {
         this.fireBaseService.QuitarFavorito(this.negocio);
         this.Favorito = "NoEsFavorito";
         this.showMessage("Removido de favoritos");
-        console.log("NoEsFavorito" )
        }
        else
        {
         this.fireBaseService.AgregarFavorito(this.negocio);
         this.Favorito = "EsFavorito"
         this.showMessage("Agregado a favoritos");
-        console.log("EsFavorito" )
        }
 
     }
 
+    EsFavorito()
+    {
+      this.fireBaseService.ObtenerFavoritos("usuario2").valueChanges().subscribe(favoritos =>
+      {
+        this.favoritos = favoritos;
+        this.Favorito = "NoEsFavorito";
+        this.favoritos.forEach(favorito => {
+          if (favorito.Entidad == this.negocio.Entidad)
+            {
+              this.Favorito = "EsFavorito";
+            }
+        });
+      });
+    }
+
+    GuardarLocal()
+    {
+
+      if(this.Guardar == "Guardado")
+        this.Guardar = "NoGuardado";
+      else
+        this.Guardar = "Guardado";
+    }
 
     showMessage(mensaje)
     {

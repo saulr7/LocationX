@@ -3,12 +3,20 @@
 
   <ion-navbar>
     <ion-title>{{Nombre}}</ion-title>
+
+    <ion-buttons  end (click)="GuardarLocal()">
+      <button  ion-button icon-only>
+        <ion-icon  name="bookmark" [id]="Guardar"></ion-icon>
+      </button>
+    </ion-buttons>
     
     <ion-buttons  end (click)="AgregarQuitarFavorito()">
         <button  ion-button icon-only>
           <ion-icon  name="star" [id]="Favorito"></ion-icon>
         </button>
     </ion-buttons>
+
+
   
   </ion-navbar>
 

@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { NegociosPage  } from "../pages/negocios/negocios";
 import { SubCategoriasPage } from "../pages/sub-categorias/sub-categorias";
 import { NegocioDescripcionPage  } from "../pages/negocio-descripcion/negocio-descripcion";
+import { FavoritosPage } from "../pages/favoritos/favoritos";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,6 +42,7 @@ const firebaseConfig = {
     NegociosPage,
     SubCategoriasPage,
     NegocioDescripcionPage,
+    FavoritosPage,
 
   ],
   imports: [
@@ -58,7 +60,8 @@ const firebaseConfig = {
     ListPage,
     NegociosPage,
     SubCategoriasPage,
-    NegocioDescripcionPage
+    NegocioDescripcionPage,
+    FavoritosPage
   ],
   providers: [
     StatusBar,

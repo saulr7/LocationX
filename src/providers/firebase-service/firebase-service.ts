@@ -70,4 +70,10 @@ export class FirebaseServiceProvider {
     return this.afDB.list("Favoritos/usuario2").remove(entidad.Entidad);
   }
 
+  public ObtenerFavoritos(usuarioId)
+  {
+    return this.afDB.list("Favoritos/"+usuarioId);
+  }
+
+
 }
