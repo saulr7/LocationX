@@ -10,7 +10,11 @@ import { NegociosPage  } from "../pages/negocios/negocios";
 import { SubCategoriasPage } from "../pages/sub-categorias/sub-categorias";
 import { NegocioDescripcionPage  } from "../pages/negocio-descripcion/negocio-descripcion";
 import { FavoritosPage } from "../pages/favoritos/favoritos";
+import { WelcomePage } from "../pages/welcome/welcome";
+import { IniciarSesionPage  } from "../pages/iniciar-sesion/iniciar-sesion";
+import {  RegistrarsePage } from "../pages/registrarse/registrarse";
 
+//
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
@@ -22,6 +26,10 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/da
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from "@angular/fire/storage";
 
+import { AlmacenamientoServiceProvider } from '../providers/almacenamiento-service/almacenamiento-service';
+import { IonicStorageModule } from "@ionic/storage";
+import { AuthProvider } from '../providers/auth/auth';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAX78S4dACcaRm3Jzsdq--kB9WeDVLITPE",
@@ -43,11 +51,15 @@ const firebaseConfig = {
     SubCategoriasPage,
     NegocioDescripcionPage,
     FavoritosPage,
+    WelcomePage,
+    IniciarSesionPage,
+    RegistrarsePage,
 
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
@@ -61,7 +73,10 @@ const firebaseConfig = {
     NegociosPage,
     SubCategoriasPage,
     NegocioDescripcionPage,
-    FavoritosPage
+    FavoritosPage,
+    WelcomePage,
+    IniciarSesionPage,
+    RegistrarsePage,
   ],
   providers: [
     StatusBar,
@@ -69,7 +84,10 @@ const firebaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireDatabase,
     AngularFireStorageModule,
-    FirebaseServiceProvider
+    FirebaseServiceProvider,
+    AlmacenamientoServiceProvider,
+    AuthProvider,
+    AuthServiceProvider
   ]
 })
 export class AppModule {}

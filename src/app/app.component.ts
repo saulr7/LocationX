@@ -6,6 +6,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { FavoritosPage } from "../pages/favoritos/favoritos";
 import { ListPage } from '../pages/list/list';
+import { WelcomePage } from "../pages/welcome/welcome";
+import { AlmacenamientoServiceProvider } from "../providers/almacenamiento-service/almacenamiento-service";
+import { AuthServiceProvider } from "../providers/auth-service/auth-service";
 
 
 @Component({
@@ -14,12 +17,33 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  //rootPage: any = HomePage;
+
+  private rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform
+    , public statusBar: StatusBar
+    , public splashScreen: SplashScreen
+    , public almacenamientoService: AlmacenamientoServiceProvider
+    , public authService : AuthServiceProvider
+      )
+   {
     this.initializeApp();
+
+    this.almacenamientoService.IsLogIn().then((logueado) =>
+    {
+      console.log("Logueado " + logueado)
+      if(logueado) 
+        this.rootPage = HomePage
+      else
+      this.rootPage = WelcomePage
+    })
+    .catch((error) =>
+    {
+      this.rootPage = WelcomePage
+    })
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -44,4 +68,19 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  logOut()
+  {
+    this.authService.signOut();
+    //this.almacenamientoService.LogOut();
+    
+    this.nav.setRoot(WelcomePage)
+    this.rootPage = WelcomePage
+  }
+
+  SeelogIn()
+  {
+    console.log(this.almacenamientoService.IsLogIn())
+  }
+
 }
