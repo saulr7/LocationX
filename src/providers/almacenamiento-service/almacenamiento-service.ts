@@ -61,35 +61,39 @@ export class AlmacenamientoServiceProvider {
   }
 
 
-  public Login()
+  public Login(user)
   {
     this.storage.set("LoggIn", true)
-    console.log("LogIn")
+    this.storage.set("email", user.email)
+    this.storage.set("userId", user.uid)
   }
 
   public LogOut()
   {
       this.storage.set("LoggIn", false)
-      console.log("LogOut")
+      this.storage.set("email", null)
+      this.storage.set("userId", null)
   }
 
   public IsLogIn()
   {
-    console.log("IsLogin")
-    console.log( (this.storage.get("LoggIn")) ? this.storage.get("LoggIn") : false )
-    //return (this.storage.get("LoggIn") !== null) ? this.storage.get("LoggIn") : false
-
     return this.storage.get("LoggIn")
-  //   return (this.storage.get("LoggIn").then((logeado)=>
-  //   {
-  //       console.log(logeado)
-  //   }).catch((error)=>
-  //   {
-  //     console.log(error)
-  //   })
-  //   //return this.storage.get("LoggIn")
-   }
+  }
 
+  public saveEmailAccount(email:string)
+  {
+    this.storage.set("email", email)
+  }
+
+  public getEmailAccount()
+  {
+    return this.storage.get("email")
+  }
+
+  public getUserId()
+  {
+    return this.storage.get("userId")
+  }
 
 
 }

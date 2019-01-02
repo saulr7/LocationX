@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFireAuth  } from "angularfire2/auth";
-import { ToastController } from "ionic-angular"
 import { HomePage  } from "../../pages/home/home";
 import { AlmacenamientoServiceProvider } from "../../providers/almacenamiento-service/almacenamiento-service";
 
@@ -13,8 +12,8 @@ export class AuthServiceProvider {
 
   constructor(
      private afAuth : AngularFireAuth  
-    ,private toastCtrl: ToastController
     ,public almacenamientoService: AlmacenamientoServiceProvider    
+    
   ) 
   { 
     this.afAuth.authState.subscribe((auth) => {
@@ -34,30 +33,25 @@ export class AuthServiceProvider {
       })
       .catch(error => {
         console.log(error)
-        this.showMessage("Algo ha salido mal :" + error.message)
         // throw error
       });
   }
 
   loginWithEmail(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        this.authState = user
-        this.almacenamientoService.Login();
-        console.log("Logueado")
-        // this.navCtrl.setRoot(this.homePage)
+      .then((response) => {
+        this.authState = response
+        this.almacenamientoService.Login(response.user);
+        //this.almacenamientoService.saveEmailAccount(this.currentUserName())
       })
       .catch(error => {
-        console.log(error)
-        this.showMessage("Algo ha salido mal :" + error.message)
+        throw error
       });
   }
 
   signOut(): void {
     this.afAuth.auth.signOut();
     this.almacenamientoService.LogOut();
-    console.log("Log out")
-    // this.router.navigate(['/'])
   }
 
 
@@ -80,15 +74,5 @@ export class AuthServiceProvider {
     return (this.authState !== null) ? this.authState['email']   : ""
   }
  
-
-
-  showMessage(mensaje)
-  {
-    const toast = this.toastCtrl.create({
-      message: mensaje,
-      duration:2000
-    });
-    toast.present();
-  }
 
 }

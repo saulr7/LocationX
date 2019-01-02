@@ -16,7 +16,10 @@ export class IniciarSesionPage {
 
   txtEmail:string = "";
   txtPassword:string = "";
-  homePage = HomePage
+  homePage = HomePage;
+  dataInfo = {registrarUsuario: false , descripcion: ""};
+
+  registrarUsuario:boolean = false;
 
   constructor
     (
@@ -25,11 +28,9 @@ export class IniciarSesionPage {
       ,private authService : AuthServiceProvider
       , private toastCtrl : ToastController
     )
-    {    }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad IniciarSesionPage');
-  }
+    {   
+      this.dataInfo = this.navParams.get("dataInfo")
+    }
 
 
   hacer_login()
@@ -46,15 +47,28 @@ export class IniciarSesionPage {
       return;
     }
 
-    this.authService.signUpWithEmail(this.txtEmail, this.txtPassword , true)
-    // this.authService.loginWithEmail(this.txtEmail, this.txtPassword)
+    if (this.dataInfo.registrarUsuario)
+       {
+         this.authService.signUpWithEmail(this.txtEmail, this.txtPassword , true).then((user) =>
+         {
+           console.log(user)
+          this.navCtrl.setRoot(this.homePage)
+          }).catch((error) =>
+          {
+            console.log("Here the error:" + error.message)
+            this.showMessage("Algo ha salido mal: " +error.message)
+          })
+        }
+    else
+      {
+        this.authService.loginWithEmail(this.txtEmail, this.txtPassword).then((user)=>{
+          this.navCtrl.setRoot(this.homePage)
 
-    if (this.authService.currentUserName() != "" )
-     {
-        this.navCtrl.setRoot(this.homePage)
-     }
-
-     //this.authService.signOut();
+        }).catch((error) =>
+      {
+        this.showMessage("Algo ha salido mal: " +error.message)
+      })
+      }
 
   }
 

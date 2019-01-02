@@ -18,25 +18,11 @@
         </ion-select>
     </ion-item> --> 
 
-    <!-- <ion-searchbar (ionInput)="getItems($event)">
+    <ion-searchbar (ionInput)="getItems($event)">
       
     </ion-searchbar>
- -->
 
-<!-- 
-    <ion-list >
-
-      <ion-item>
-        <ion-label>Sub Categoria:</ion-label>
-        <ion-select interface="action-sheet" cancelText="Cancelar" okText="Selecionar" [(ngModel)]="selectedRubro" (ionChange)="getBussiness()">
-          <ion-option *ngFor="let subRubro of subRubros" [value]="subRubro.Nombre">{{subRubro.Nombre}}</ion-option>
-        </ion-select>  
-      </ion-item>
-    </ion-list>
-   -->
-   <h2 text-center>
-     Sub Rubros
-   </h2>
+   
     <ion-list >
   
     <button ion-item *ngFor="let subRubro of subRubros" (click)="ver_negocio(subRubro)">
@@ -49,6 +35,5 @@
   
   </ion-list>
   
-
 
 </ion-content>

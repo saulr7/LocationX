@@ -1,28 +1,45 @@
 
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>WELCOME</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
 
-  <!-- <ion-icon text-cente name="search"></ion-icon>
-  <br>
-  <ion-icon name="heart"></ion-icon> -->
 
-  <div text-center>
-    text-center
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac vehicula lorem.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti accusamus rem iusto sequi minus laudantium inventore officiis veniam dolore voluptatem iste accusantium illo magnam, aliquam fugit ad modi? Exercitationem, earum.
-  </div>
+  <h1 text-center>
+    Bienvenido a Location X
+  </h1>
 
-
-
-  <button ion-button round outline color="primary"  class="btnLogin" (click)="pagina_login()" >Inicia Sesion</button>
-  <button ion-button round outline color="secondary" class="btnLogin btnRight" (click)="pagina_registro()" >Regístrate</button>
-
+  <ion-slides>
+    <ion-slide >
+      <h2 style="color: gray">Encuentra lo que buscas y mas...</h2>
+      <ion-icon style="font-size: 60px; color: #E8BB18;" name="search"></ion-icon>
+      <p style="color: gray">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, incidunt? Beatae mollitia libero, saepe deleniti ipsum animi veritatis commodi laudantium aliquid nisi harum facilis explicabo, recusandae amet, architecto quibusdam sequi?</p>
+    </ion-slide>
+    <ion-slide>
+      <h2 style="color: gray">Explora</h2>
+      <ion-icon style="font-size: 60px; color: #E8BB18;" name="star"></ion-icon>
+      <p style="color: gray">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, incidunt? Beatae mollitia libero, saepe deleniti ipsum animi veritatis commodi laudantium aliquid nisi harum facilis explicabo, recusandae amet, architecto quibusdam sequi?</p>
+    </ion-slide>
+    <ion-slide>
+      <h2 style="color: gray">Navega</h2>
+      <ion-icon style="font-size: 60px; color: #E8BB18;" name="navigate"></ion-icon>
+      <p style="color: gray">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, incidunt? Beatae mollitia libero, saepe deleniti ipsum animi veritatis commodi laudantium aliquid nisi harum facilis explicabo, recusandae amet, architecto quibusdam sequi?</p>
+    </ion-slide>
+  </ion-slides>
+  
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons start>
+      <button ion-button (click)="pagina_login(false)" >
+        Inicia Sesion
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end color="secondary">
+      <button ion-button (click)="pagina_login(true)" >
+        Registrate
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

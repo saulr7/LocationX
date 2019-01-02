@@ -4,6 +4,7 @@ import { FirebaseServiceProvider } from "../../providers/firebase-service/fireba
 import { LoadingController } from "ionic-angular";
 
 import { NegocioDescripcionPage } from "../negocio-descripcion/negocio-descripcion";
+import { AlmacenamientoServiceProvider  } from "../../providers/almacenamiento-service/almacenamiento-service";
 
 @IonicPage()
 @Component({
@@ -17,7 +18,9 @@ export class FavoritosPage {
   constructor(public navCtrl: NavController
     , public navParams: NavParams
     , public loadingCtrl :LoadingController
-    , public fireBaseService: FirebaseServiceProvider)
+    , public fireBaseService: FirebaseServiceProvider
+    , private almacenamientoService : AlmacenamientoServiceProvider
+  )
   {
     this.MostrarFavoritos();
   }
@@ -28,11 +31,16 @@ export class FavoritosPage {
       content: 'Por favor espere...'
     });
     loading.present();
-    this.fireBaseService.ObtenerFavoritos("usuario2").valueChanges().subscribe(favoritos =>
-    {
-      this.negocios = favoritos;
-      loading.dismiss();
-    });
+
+    this.almacenamientoService.getUserId().then((userId)=>
+  {
+      this.fireBaseService.ObtenerFavoritos(userId).valueChanges().subscribe(favoritos =>
+      {
+        this.negocios = favoritos;
+        loading.dismiss();
+      });
+  })
+
   }
 
 

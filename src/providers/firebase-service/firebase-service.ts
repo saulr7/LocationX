@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 //Firebase
 import { AngularFireDatabase } from '@angular/fire/database/database';
 import { AngularFireStorage } from "@angular/fire/storage/storage";
+import { AlmacenamientoServiceProvider } from "../almacenamiento-service/almacenamiento-service"
 
 
 @Injectable()
@@ -12,7 +13,9 @@ export class FirebaseServiceProvider {
 
   constructor(   
       public afDB: AngularFireDatabase
-    , public atST:AngularFireStorage ) 
+    , public atST:AngularFireStorage
+    , private almacenamientoService: AlmacenamientoServiceProvider
+  ) 
   {   
     
   }
@@ -62,17 +65,25 @@ export class FirebaseServiceProvider {
 
   public AgregarFavorito(entidad)
   {
-    return this.afDB.list("Favoritos/usuario2").set(entidad.Entidad,entidad);
+    return this.almacenamientoService.getUserId().then((userId) =>
+    {
+      this.afDB.list("Favoritos/" +userId).set(entidad.Entidad,entidad);
+    })
+
   }
 
   public QuitarFavorito(entidad)
   {
-    return this.afDB.list("Favoritos/usuario2").remove(entidad.Entidad);
+    return this.almacenamientoService.getUserId().then((userId) =>
+    {
+      this.afDB.list("Favoritos/" + userId).remove(entidad.Entidad);
+    })
+
   }
 
   public ObtenerFavoritos(usuarioId)
   {
-    return this.afDB.list("Favoritos/"+usuarioId);
+      return this.afDB.list("Favoritos/"+usuarioId);
   }
 
 

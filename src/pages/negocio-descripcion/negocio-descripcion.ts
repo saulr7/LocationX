@@ -96,17 +96,20 @@ export class NegocioDescripcionPage {
 
     EsFavorito()
     {
-      this.fireBaseService.ObtenerFavoritos("usuario2").valueChanges().subscribe(favoritos =>
-      {
-        this.favoritos = favoritos;
-        this.Favorito = "NoEsFavorito";
-        this.favoritos.forEach(favorito => {
-          if (favorito.Entidad == this.negocio.Entidad)
-            {
-              this.Favorito = "EsFavorito";
-            }
+      this.almacenamientoService.getUserId().then((userId) =>{
+        this.fireBaseService.ObtenerFavoritos(userId).valueChanges().subscribe(favoritos =>
+        {
+          this.favoritos = favoritos;
+          this.Favorito = "NoEsFavorito";
+          this.favoritos.forEach(favorito => {
+            if (favorito.Entidad == this.negocio.Entidad)
+              {
+                this.Favorito = "EsFavorito";
+              }
+          });
         });
-      });
+      })
+
     }
 
     GuardarLocal()
@@ -133,7 +136,6 @@ export class NegocioDescripcionPage {
       this.almacenamientoService.ObternerEntidades().then((entidades)=>
       {
         this.EntidadesGuardadas = JSON.parse("["+ entidades +"]") 
-        console.log(this.EntidadesGuardadas)
         this.Guardar = "NoGuardado"
         this.EntidadesGuardadas.forEach(entidad => {
           if (entidad.Entidad == this.negocio.Entidad)

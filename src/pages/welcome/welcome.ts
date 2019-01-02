@@ -23,14 +23,16 @@ export class WelcomePage {
   )
    {  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad WelcomePage');
-  }
 
-  pagina_login()
+  pagina_login(registrarUsuario:boolean)
   {
     //this.navCtrl.setRoot(this.iniciarSesionPage)
-    this.navCtrl.push(this.iniciarSesionPage)
+    const dataInfo = {
+      registrarUsuario : registrarUsuario,
+      descripcion :  (registrarUsuario) ? "Registrar Usuario" : "Iniciar Sesion"
+    }
+
+    this.navCtrl.push(this.iniciarSesionPage,{ dataInfo : dataInfo})
   }
 
   pagina_registro()

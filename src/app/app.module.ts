@@ -28,7 +28,6 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 
 import { AlmacenamientoServiceProvider } from '../providers/almacenamiento-service/almacenamiento-service';
 import { IonicStorageModule } from "@ionic/storage";
-import { AuthProvider } from '../providers/auth/auth';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 const firebaseConfig = {
@@ -86,7 +85,6 @@ const firebaseConfig = {
     AngularFireStorageModule,
     FirebaseServiceProvider,
     AlmacenamientoServiceProvider,
-    AuthProvider,
     AuthServiceProvider
   ]
 })

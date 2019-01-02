@@ -19,9 +19,10 @@ export class MyApp {
 
   //rootPage: any = HomePage;
 
-  private rootPage: any;
+  rootPage: any;
+  emailAccount:string = "";
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, avatar:string, component: any}>;
 
   constructor(public platform: Platform
     , public statusBar: StatusBar
@@ -34,7 +35,6 @@ export class MyApp {
 
     this.almacenamientoService.IsLogIn().then((logueado) =>
     {
-      console.log("Logueado " + logueado)
       if(logueado) 
         this.rootPage = HomePage
       else
@@ -45,11 +45,17 @@ export class MyApp {
       this.rootPage = WelcomePage
     })
 
+    this.almacenamientoService.getEmailAccount().then((email) =>
+  {
+    this.emailAccount = email
+    console.log("Here goes the email: " + this.emailAccount)
+  })
+
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      {title: 'Favoritos', component:FavoritosPage},
-      { title: 'List', component: ListPage }
+      { title: 'Inicio' , avatar: 'home', component: HomePage },
+      {title: 'Favoritos', avatar: 'star', component:FavoritosPage},
+      { title: 'List', avatar: 'home', component: ListPage }
     ];
 
   }
@@ -78,9 +84,5 @@ export class MyApp {
     this.rootPage = WelcomePage
   }
 
-  SeelogIn()
-  {
-    console.log(this.almacenamientoService.IsLogIn())
-  }
 
 }
