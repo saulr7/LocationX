@@ -22,6 +22,7 @@ export class HomePage {
   )
     {
       this.MostrarRubros();
+      this.fireBaseService.EntidadesMasVisitadas();
     }
 
   ver_rubro(rubro)
@@ -29,11 +30,6 @@ export class HomePage {
      this.navCtrl.push(SubCategoriasPage,{Nombre: rubro.Nombre});
   }
 
-  ObtenerUrl(NombreArchivo)
-  {
-
-    return this.fireBaseService.ObtenerUrl(NombreArchivo)
-  }
 
   getIcon()
   {

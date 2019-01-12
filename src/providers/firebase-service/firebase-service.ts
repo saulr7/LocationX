@@ -11,50 +11,37 @@ import { AlmacenamientoServiceProvider } from "../almacenamiento-service/almacen
 export class FirebaseServiceProvider {
 
 
-  constructor(   
-      public afDB: AngularFireDatabase
-    , public atST:AngularFireStorage
+  constructor
+  (   
+      private afDB: AngularFireDatabase
+    // , private atST:AngularFireStorage
     , private almacenamientoService: AlmacenamientoServiceProvider
   ) 
-  {   
-    
-  }
+  {  }
   
   public ObtenerRubros()
   {
-    //return this.afDB.list('rubros');
     return this.afDB.list('RubrosV2');
   }
 
 
   public ObtenerSubRubros(subRubro)
   {
-    //return this.afDB.list('rubros/'+subRubro);
     return this.afDB.list('SubRubros/'+subRubro);
   }
 
   public ObtenerNegocios(negocio)
   {
-    //return this.afDB.list('rubros/'+"Educación/"+negocio);
-    return this.afDB.list('Negocios/'+negocio);
-  }
-
-  public ObtenerUrl(FileName)
-  {
-    this.atST.storage.ref('Img/Rubros/Finanzas.jpg').getDownloadURL().then(function(data){
-      return data;
-    })
+    return this.afDB.database.ref('/Negocios/'+negocio)
   }
 
 
-  public NuevaUrl(Archivo)
-  {
-    return this.atST.storage.ref('Img/Rubros/Finanzas.jpg');
-  }
-  
   public ObtenerEntidad(entidad)
   {
-    return this.afDB.list("Entidades/"+entidad);
+    if (!entidad)
+      throw "Es necesaria una entidad para hacer la busqueda";
+
+    return this.afDB.database.ref("/Entidades/").child(entidad);
 
   }
 
@@ -86,5 +73,52 @@ export class FirebaseServiceProvider {
       return this.afDB.list("Favoritos/"+usuarioId);
   }
 
+  
+  public RegistrarOtraVisita(entidad:string)
+  {
+    if(!entidad)
+    return;
+
+    var visitasRef = this.afDB.database.ref("Estadisticas/Visitas/"+entidad);
+    visitasRef.once("value" , visitas =>
+    {
+      var totalVisitas =  (visitas.val() ? visitas.val() : 0 ) +1
+      console.log(totalVisitas)
+      visitasRef.set (totalVisitas)
+    }) 
+  }
+
+  public RegistrarOtroFavorito(entidad:string, sumar:boolean=true)
+  {
+    if(!entidad)
+      return;
+
+    var favoritosRef = this.afDB.database.ref("/Estadisticas/Favoritos/"+entidad );
+    favoritosRef.once("value" , visitas =>
+    {
+      var totalVisitas
+
+      if (sumar)       
+        totalVisitas =  (visitas.val() ? visitas.val() : 0 ) +1
+      else
+        totalVisitas =  (visitas.val() > 0 ? visitas.val() -1 : 0 )
+
+      favoritosRef.set( totalVisitas )
+    }) 
+  }
+
+  public EntidadesMasVisitadas()
+  {
+    var entidadesMasVisitadas = this.afDB.database.ref("Estadisticas").orderByChild("Metricas/Visitas")
+
+    console.log(entidadesMasVisitadas)
+
+    entidadesMasVisitadas.once("value" , respuesta =>
+  {
+    console.log(respuesta.val())
+
+  })
+
+  }
 
 }

@@ -2,15 +2,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{Nombre}}</ion-title>
+    <ion-title>{{entidad.Nombre || Title}}</ion-title>
 
-    <ion-buttons  end (click)="GuardarLocal()">
+    <ion-buttons *ngIf="!hayError"  end (click)="GuardarLocal()">
       <button  ion-button icon-only>
         <ion-icon  name="bookmark" [id]="Guardar"></ion-icon>
       </button>
     </ion-buttons>
     
-    <ion-buttons  end (click)="AgregarQuitarFavorito()">
+    <ion-buttons *ngIf="!hayError" end (click)="AgregarQuitarFavorito()">
         <button  ion-button icon-only>
           <ion-icon  name="star" [id]="Favorito"></ion-icon>
         </button>
@@ -23,32 +23,52 @@
 
 </ion-header>
 
+<ion-content *ngIf="hayError" style="background-color: #f4f4f4">
+    <ion-grid  style="height: 90%;">
+        <ion-row justify-content-center align-items-center style="height: 90%">
+            <ion-col col-12 style="color: gray">
+                <ion-card>
+  
+                    <ion-card-header>
+                        Lo sentimos!
+                    </ion-card-header>
+                  
+                    <ion-card-content>
+                        Al parecer algo ha salido mal
+                    </ion-card-content>
+                  
+                  </ion-card>
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+</ion-content>
 
-<ion-content >
+
+<ion-content style="background-color: #f4f4f4" *ngIf="!hayError" >
 
     <ion-card>
         <!-- <img src="{{UrlImagen}}"/> -->
         <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>
         <ion-card-content>
           <ion-card-title>
-              {{Nombre}}
+              {{entidad.Nombre}}
             </ion-card-title>
           <p>
-          {{Descripcion}}
+          {{entidad.Descripcion}}
           </p>
 
           <ion-list>
               <ion-item>
                 <ion-icon name="mail" item-start></ion-icon>
-                  {{Correo}}
+                  {{entidad.Correo}}
               </ion-item>
               <ion-item>
                   <ion-icon name="call" item-start></ion-icon>
-                    {{Telefono}}
+                    {{entidad.Telefono}}
               </ion-item>
               <ion-item>
                   <ion-icon name="compass" item-start></ion-icon>
-                    {{PaginaWeb}}
+                    {{entidad.PaginaWeb}}
               </ion-item>
           </ion-list>      
 

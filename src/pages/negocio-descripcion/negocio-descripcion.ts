@@ -17,19 +17,22 @@ import { ToastController  } from "ionic-angular";
 export class NegocioDescripcionPage {
 
   negocio:any;
-  entidad:any;
   favoritos:any;
   EntidadesGuardadas:any;
 
-  Nombre:string;
-  Descripcion:string;
-  Correo:string;
-  PaginaWeb:string;
-  Telefono:string;
-  UrlImagen:string;
   Sucursales:any;
   Favorito:string;
   Guardar:string;
+  hayError:boolean =false;
+
+
+  entidad = {
+      Nombre: "Titulo"
+    , Descripcion: "Descripcion"
+    , Correo: ""
+    , PaginaWeb:""
+    , Telefono : null
+    , UrlImagen: ""}
 
 
   constructor(public navCtrl: NavController
@@ -41,10 +44,19 @@ export class NegocioDescripcionPage {
     ) 
     {
       this.negocio = this.navParams.get("negocio");  
+      
+      if (!this.negocio)
+      {
+        this.hayError = true;
+        return;
+      }
+
       this.MostrarEntidad();
       this.MostrarSucursales();
       this.EsFavorito()
       this.EstaGuardado()
+      //this.ObtenerVisitas();
+      this.UnaVisitaMas();
     }
 
     MostrarEntidad()
@@ -54,18 +66,63 @@ export class NegocioDescripcionPage {
         content: 'Por favor espere...'
       });
       loading.present();
-    
-      this.fireBaseService.ObtenerEntidad(this.negocio.Entidad).valueChanges().subscribe(entidad =>
+
+      if (!this.negocio.Entidad) 
       {
-        this.entidad = entidad[0];
-        this.Nombre = this.entidad.Nombre;
-        this.Descripcion  = this.entidad.Descripcion;
-        this.Correo  = this.entidad.Correo;
-        this.PaginaWeb  = this.entidad.PaginaWeb;
-        this.Telefono  = this.entidad.Telefono;
-        this.UrlImagen  = this.entidad.UrlImagen;
+        this.hayError = true
         loading.dismiss();
-      });
+        return;
+      }
+
+      this.fireBaseService.ObtenerEntidad(this.negocio.Entidad).on("value", entidades =>
+      {
+      
+        try
+        {
+          this.entidad = entidades.val();
+          loading.dismiss();
+          
+        }
+         catch (error)
+         {
+            loading.dismiss();
+            this.hayError = true;
+            console.log(error) 
+        }
+
+    })
+      
+      // this.fireBaseService.ObtenerEntidad(this.negocio.Entidad).valueChanges().subscribe(entidad =>
+      // {
+      //   console.log(this.negocio.Entidad)
+      //   console.log("Entidad")
+      //   console.log(entidad)
+      //   var myList:Array<any>;
+
+      //   myList = entidad
+
+      //   console.log("My list")
+      //   console.log(myList)
+
+      //   try {
+      //     this.entidad = entidad[0];
+      //     this.Nombre = this.entidad.Nombre;
+      //     this.Descripcion  = this.entidad.Descripcion;
+      //     this.Correo  = this.entidad.Correo;
+      //     this.PaginaWeb  = this.entidad.PaginaWeb;
+      //     this.Telefono  = this.entidad.Telefono;
+      //     this.UrlImagen  = this.entidad.UrlImagen;
+      //     loading.dismiss();
+          
+      //   } 
+      //   catch (error)
+      //     {
+      //       loading.dismiss();
+      //       this.hayError = true;
+      //       console.log(error)
+      //     }
+
+      // });
     }
 
     MostrarSucursales()
@@ -83,12 +140,14 @@ export class NegocioDescripcionPage {
        {
         this.fireBaseService.QuitarFavorito(this.negocio);
         this.Favorito = "NoEsFavorito";
+        this.fireBaseService.RegistrarOtroFavorito(this.negocio.Entidad, false)
         this.showMessage("Removido de favoritos");
        }
        else
        {
         this.fireBaseService.AgregarFavorito(this.negocio);
         this.Favorito = "EsFavorito"
+        this.fireBaseService.RegistrarOtroFavorito(this.negocio.Entidad)
         this.showMessage("Agregado a favoritos");
        }
 
@@ -146,6 +205,12 @@ export class NegocioDescripcionPage {
        console.error("Error->:", error) 
       })
     }
+
+    UnaVisitaMas()
+    {
+      this.fireBaseService.RegistrarOtraVisita(this.negocio.Entidad)
+    }
+
 
     showMessage(mensaje)
     {

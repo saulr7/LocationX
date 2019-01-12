@@ -16,14 +16,35 @@
 
 </ion-header>
 
-<ion-content class="card-background-page">
+<!-- <ion-content class="card-background-page"> -->
+<ion-content style=" background-color: #f4f4f4">
 
-  <ion-card *ngFor="let rubro of rubros" (click)="ver_rubro(rubro)">
-    
+
+    <!-- <ion-searchbar placeholder="¿Que estas buscando?" (ionInput)="getItems($event)"></ion-searchbar> -->
+
+    <h2 text-center>
+      ¿Que estas buscando...?
+    </h2>
+
+    <ion-grid no-padding >
+        <ion-row justify-content-center align-items-center>
+          <ion-col *ngFor="let rubro of rubros" (click)="ver_rubro(rubro)"  col-6 style="color: gray" justify-content-center align-items-center>
+              <ion-card justify-content-center align-items-center>
+                  <img center src="../../assets/imgs/Rubros/{{rubro.UrlImagen}}" style="width: 5rem; margin: 0 auto"/> 
+                  <ion-card-content style="text-align: center; color: #000">
+                      {{rubro.Nombre}}
+                  </ion-card-content>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+  <!-- <ion-card *ngFor="let rubro of rubros" (click)="ver_rubro(rubro)">
     <img src="{{rubro.UrlImagen}}"/> 
     <div  class="card-title"> {{rubro.Nombre}}</div>
     <div class="card-subtitle">{{rubro.Descripcion}}</div>
-  </ion-card>
+  </ion-card> -->
 
   <!-- https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png -->
 

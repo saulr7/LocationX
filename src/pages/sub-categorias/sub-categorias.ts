@@ -52,7 +52,7 @@ export class SubCategoriasPage {
       console.log(this.subRubros[0].Nombre)
     }
 
-    this.firebaseService.ObtenerNegocios(this.selectedRubro).valueChanges().subscribe(negocios =>
+    this.firebaseService.ObtenerNegocios(this.selectedRubro).on("value", negocios =>
       {    
         this.negocios = negocios
         console.log(this.negocios)

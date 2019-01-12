@@ -8,15 +8,36 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content style="background-color: #f4f4f4">
 
-    <ion-searchbar (ionInput)="getItems($event)">      
-    </ion-searchbar>
+  <ion-searchbar  *ngIf="hayRegistrosParaMostrar" (ionInput)="buscar($event)">      
+  </ion-searchbar>
+
   
 
+  <ion-grid *ngIf="!hayRegistrosParaMostrar" style="height: 90%; background-color: #f4f4f4">
+      <ion-row justify-content-center align-items-center style="height: 90%">
+          <ion-col col-12 style="color: gray">
+              <ion-card>
+
+                  <ion-card-header>
+                      Lo sentimos!
+                  </ion-card-header>
+                
+                  <ion-card-content>
+                      Al parecer no se han encontrado registros
+                  </ion-card-content>
+                
+                </ion-card>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    
   <ion-list>
 
-  <ion-item-sliding #item *ngFor="let negocio of negocios">
+  <ion-item-sliding #item *ngFor="let negocio of entidadesList">
     
     <button ion-item (click)="ver_negocio(negocio)">
           <ion-avatar item-start>

@@ -14,17 +14,22 @@ export class NegociosPage {
   negocios:any;
 
   subRubroNombre:string;
+  hayRegistrosParaMostrar:boolean = true;
+
+  public entidadesList:Array<any>;
+  public loadedEntidadesList:Array<any>;
+  public entidadesRef:firebase.database.Reference;
 
   negocioDescripcionPage= NegocioDescripcionPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams
     ,public firebaseService:FirebaseServiceProvider
     ,public loadingCtr: LoadingController
-  ) {
-
+  ) 
+  {
       this.subRubroNombre = navParams.get('subRubro')
       this.MostrarNegocios();
-  }
+    }
 
   ionViewDidLoad() {
     
@@ -35,9 +40,28 @@ export class NegociosPage {
     this.navCtrl.push(this.negocioDescripcionPage,{negocio:negocio});
   }
 
-  getItems(ev: any) 
+  buscar(ev: any) 
   {
-    console.log("Hizo click")
+    this.initializeItems();
+
+    var terminoBusqueda = ev.srcElement.value;
+
+      if (!terminoBusqueda) {
+        return;
+      }
+      this.entidadesList = this.entidadesList.filter((v) => {
+        
+        if(v.Nombre && terminoBusqueda) 
+        {
+          if (v.Nombre.toLowerCase().indexOf(terminoBusqueda.toLowerCase()) > -1
+           || v.Descripcion.toLowerCase().indexOf(terminoBusqueda.toLowerCase()) > -1) 
+          {
+            return true;
+          }
+          return false;
+        }
+      });
+
   }
 
   add_Favorite(negocio)
@@ -51,12 +75,50 @@ export class NegociosPage {
     });
     loading.present();
   
-    this.firebaseService.ObtenerNegocios(this.subRubroNombre).valueChanges().subscribe(negocios =>
+    try {
+      
+      // this.entidadesRef = this.firebaseService.afDB.database.ref('/Negocios/'+this.subRubroNombre);
+      // this.entidadesRef.on('value', entidadesList => {
+      
+      this.firebaseService.ObtenerNegocios(this.subRubroNombre).on('value', entidadesList => 
       {
-        this.negocios = negocios;
+        if (!entidadesList.val() )
+        {
+          this.hayRegistrosParaMostrar = false;
+          return;
+        }
+        let Entidades = [];
+        entidadesList.forEach( country => {
+          Entidades.push(country.val());
+          return false;
+        });
+        
+        this.entidadesList = Entidades;
+        this.loadedEntidadesList = Entidades;
         loading.dismiss();
       });
+    } 
+    catch (error) 
+    {
+      loading.dismiss();
+    }
+
+
+    // this.firebaseService.ObtenerNegocios(this.subRubroNombre).valueChanges().subscribe(negocios =>
+    //   {
+    //     this.negocios = negocios;
+    //     if (!this.negocios[0] )
+    //     {
+    //       this.hayRegistrosParaMostrar = false;
+    //     }
+    //     loading.dismiss();
+    //   });
   }
   
+
+  initializeItems(): void {
+    this.entidadesList = this.loadedEntidadesList;
+  }
+
 
 }
