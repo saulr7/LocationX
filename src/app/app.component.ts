@@ -55,7 +55,8 @@ export class MyApp {
     this.pages = [
       { title: 'Inicio' , avatar: 'home', component: HomePage },
       {title: 'Favoritos', avatar: 'star', component:FavoritosPage},
-      { title: 'List', avatar: 'home', component: ListPage }
+      {title: 'Populares', avatar: 'globe', component:FavoritosPage},
+      // { title: 'List', avatar: 'home', component: ListPage }
     ];
 
   }

@@ -9,29 +9,28 @@
 
 
 <ion-content >
-<!-- 
-    <ion-item>
-        <ion-label>{{subRubroNombre }}</ion-label>
-        <!-- <ion-select [(ngModel)]="subRubros"  multiple="false"> -->
-        <!-- <ion-select  multiple="false">
-            <ion-option *ngFor="let subRubro of subRubros">{{subRubro.Nombre}}</ion-option>
-        </ion-select>
-    </ion-item> --> 
-
-    <!-- <ion-searchbar (ionInput)="getItems($event)">
-      
-    </ion-searchbar> -->
-
    
     <ion-list >
   
-    <button ion-item *ngFor="let subRubro of subRubros" (click)="ver_negocio(subRubro)">
+      <ion-item  *ngFor="let subRubro of subRubros" (click)="ver_negocio(subRubro)">
+          <ion-avatar item-start>
+            <img src="../../assets/imgs/SubRubros/search2.svg">
+          </ion-avatar>
+          <h2>{{subRubro.Nombre}}</h2>
+          <ion-icon name="arrow-forward" item-end></ion-icon>
+
+
+      </ion-item> 
+
+    <!-- <button ion-item *ngFor="let subRubro of subRubros" (click)="ver_negocio(subRubro)">
       <ion-thumbnail item-start>
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
-      </ion-thumbnail>
+        <ion-icon style="font-size: 50px; color: #E8BB18;" name="browsers"></ion-icon>
+        <!-- <img src="../../assets/imgs/SubRubros/search.svg"> -->
+        <!-- <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png"> -->
+        
+      <!-- </ion-thumbnail>
       <h2>{{subRubro.Nombre}}</h2>
-      <!-- <p>Hayao Miyazaki • 1988</p> -->
-    </button> 
+    </button> -->
   
   </ion-list>
   

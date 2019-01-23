@@ -7,16 +7,21 @@
 
   <ion-content>
 
-      <ion-list>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Hy2Orfoxa72nGUhSakm7zQPY1LzxJWGb5U0Kmcf7ZX4TpvNZgg">
-            </ion-avatar>
-            <h2>Perfil</h2>
-            <h3>{{emailAccount}}</h3>
-            <p>I've had a pretty messed up day. If we just...</p>
-          </ion-item>
-        </ion-list>
+    <p padding-left>Perfil:</p>
+    
+    <ion-list>
+      <ion-item>
+        <ion-icon name="contact" item-start></ion-icon>
+          Usuario
+      </ion-item>
+            <ion-item>
+        <ion-icon name="mail" item-start></ion-icon>
+        {{emailAccount}}
+      </ion-item>
+    </ion-list>
+
+
+    <p padding-left>Navegación:</p>
     <ion-list>
 
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">

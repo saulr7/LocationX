@@ -16,11 +16,8 @@
 
 </ion-header>
 
-<!-- <ion-content class="card-background-page"> -->
-<ion-content style=" background-color: #f4f4f4">
+<ion-content style=" background-color: #f4f4f4; background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);;">
 
-
-    <!-- <ion-searchbar placeholder="¿Que estas buscando?" (ionInput)="getItems($event)"></ion-searchbar> -->
 
     <h2 text-center>
       ¿Que estas buscando...?
@@ -28,8 +25,8 @@
 
     <ion-grid no-padding >
         <ion-row justify-content-center align-items-center>
-          <ion-col *ngFor="let rubro of rubros" (click)="ver_rubro(rubro)"  col-6 style="color: gray" justify-content-center align-items-center>
-              <ion-card justify-content-center align-items-center>
+          <ion-col *ngFor="let rubro of rubros" (click)="ver_rubro(rubro)"  col-6 style="color: gray; margin-top: 10px;" justify-content-center align-items-center>
+              <ion-card justify-content-center align-items-center style="padding-top: 10px; margin:0px 10px 0px 10px">
                   <img center src="../../assets/imgs/Rubros/{{rubro.UrlImagen}}" style="width: 5rem; margin: 0 auto"/> 
                   <ion-card-content style="text-align: center; color: #000">
                       {{rubro.Nombre}}
