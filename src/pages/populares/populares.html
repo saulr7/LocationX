@@ -1,32 +1,28 @@
-
-
 <ion-header>
   <ion-navbar>
+
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Favoritos</ion-title>
+    <ion-title>Populares</ion-title>
+  
   </ion-navbar>
+
 </ion-header>
 
 
-
 <ion-content >
-
-  <ion-searchbar (ionInput)="getItems($event)">      
-  </ion-searchbar>
-
 
   <ion-list>
 
     <ion-item-sliding #item *ngFor="let negocio of negocios">
       
-      <button ion-item (click)="ver_negocio(negocio)">
+      <button ion-item (click)="ver_negocio(negocio.nombre)">
             <ion-avatar item-start>
               <img src="../../assets/imgs/SubRubros/search2.svg">
             </ion-avatar>
-            <h2>{{negocio}}</h2>
-            <p>{{negocio.Descripcion}}</p>
+            <h2>{{negocio.nombre}}</h2>
+            <ion-badge color="warning" item-end slot="end">  {{negocio.valor}}</ion-badge>
       </button> 
   
       <ion-item-options side="right">
@@ -39,6 +35,5 @@
     </ion-item-sliding>
   
   </ion-list>
-
 
 </ion-content>

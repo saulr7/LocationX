@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database/database';
 import { AngularFireStorage } from "@angular/fire/storage/storage";
 import { AlmacenamientoServiceProvider } from "../almacenamiento-service/almacenamiento-service"
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 
 @Injectable()
@@ -54,7 +55,7 @@ export class FirebaseServiceProvider {
   {
     return this.almacenamientoService.getUserId().then((userId) =>
     {
-      this.afDB.list("Favoritos/" +userId).set(entidad.Entidad,entidad);
+      this.afDB.list("Favoritos/" +userId).set(entidad,entidad);
     })
 
   }
@@ -63,7 +64,7 @@ export class FirebaseServiceProvider {
   {
     return this.almacenamientoService.getUserId().then((userId) =>
     {
-      this.afDB.list("Favoritos/" + userId).remove(entidad.Entidad);
+      this.afDB.list("Favoritos/" + userId).remove(entidad);
     })
 
   }
@@ -79,11 +80,10 @@ export class FirebaseServiceProvider {
     if(!entidad)
     return;
 
-    var visitasRef = this.afDB.database.ref("Estadisticas/Visitas/"+entidad);
+    var visitasRef = this.afDB.database.ref("/Estadisticas/Metricas/Visitas/"+entidad);
     visitasRef.once("value" , visitas =>
     {
       var totalVisitas =  (visitas.val() ? visitas.val() : 0 ) +1
-      console.log(totalVisitas)
       visitasRef.set (totalVisitas)
     }) 
   }
@@ -93,7 +93,7 @@ export class FirebaseServiceProvider {
     if(!entidad)
       return;
 
-    var favoritosRef = this.afDB.database.ref("/Estadisticas/Favoritos/"+entidad );
+    var favoritosRef = this.afDB.database.ref("/Estadisticas/Metricas/Favoritos/"+entidad );
     favoritosRef.once("value" , visitas =>
     {
       var totalVisitas
@@ -109,15 +109,17 @@ export class FirebaseServiceProvider {
 
   public EntidadesMasVisitadas()
   {
-    var entidadesMasVisitadas = this.afDB.database.ref("Estadisticas").orderByChild("Metricas/Visitas")
 
-    console.log(entidadesMasVisitadas)
+    var entidad = {
+      entidad : "",
+      valor : 0
+    }
 
-    entidadesMasVisitadas.once("value" , respuesta =>
-  {
-    console.log(respuesta.val())
+    var entidades = [];
 
-  })
+    return this.afDB.database.ref("/Estadisticas/Metricas/Visitas")
+    .orderByValue().limitToLast(20)
+    .once("value")
 
   }
 

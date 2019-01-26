@@ -12,7 +12,8 @@ import { NegocioDescripcionPage  } from "../pages/negocio-descripcion/negocio-de
 import { FavoritosPage } from "../pages/favoritos/favoritos";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { IniciarSesionPage  } from "../pages/iniciar-sesion/iniciar-sesion";
-import {  RegistrarsePage } from "../pages/registrarse/registrarse";
+import { RegistrarsePage } from "../pages/registrarse/registrarse";
+import { PopularesPage  } from "../pages/populares/populares";
 
 //
 import { StatusBar } from '@ionic-native/status-bar';
@@ -53,6 +54,7 @@ const firebaseConfig = {
     WelcomePage,
     IniciarSesionPage,
     RegistrarsePage,
+    PopularesPage,
 
   ],
   imports: [
@@ -76,6 +78,7 @@ const firebaseConfig = {
     WelcomePage,
     IniciarSesionPage,
     RegistrarsePage,
+    PopularesPage
   ],
   providers: [
     StatusBar,

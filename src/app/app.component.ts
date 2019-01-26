@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { FavoritosPage } from "../pages/favoritos/favoritos";
 import { ListPage } from '../pages/list/list';
+import { PopularesPage  } from "../pages/populares/populares";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { AlmacenamientoServiceProvider } from "../providers/almacenamiento-service/almacenamiento-service";
 import { AuthServiceProvider } from "../providers/auth-service/auth-service";
@@ -48,14 +49,13 @@ export class MyApp {
     this.almacenamientoService.getEmailAccount().then((email) =>
   {
     this.emailAccount = email
-    console.log("Here goes the email: " + this.emailAccount)
   })
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Inicio' , avatar: 'home', component: HomePage },
       {title: 'Favoritos', avatar: 'star', component:FavoritosPage},
-      {title: 'Populares', avatar: 'globe', component:FavoritosPage},
+      {title: 'Populares', avatar: 'globe', component:PopularesPage},
       // { title: 'List', avatar: 'home', component: ListPage }
     ];
 

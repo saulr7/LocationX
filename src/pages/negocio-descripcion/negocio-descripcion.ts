@@ -67,14 +67,14 @@ export class NegocioDescripcionPage {
       });
       loading.present();
 
-      if (!this.negocio.Entidad) 
+      if (!this.negocio) 
       {
         this.hayError = true
         loading.dismiss();
         return;
       }
 
-      this.fireBaseService.ObtenerEntidad(this.negocio.Entidad).on("value", entidades =>
+      this.fireBaseService.ObtenerEntidad(this.negocio).on("value", entidades =>
       {
       
         try
@@ -92,42 +92,11 @@ export class NegocioDescripcionPage {
 
     })
       
-      // this.fireBaseService.ObtenerEntidad(this.negocio.Entidad).valueChanges().subscribe(entidad =>
-      // {
-      //   console.log(this.negocio.Entidad)
-      //   console.log("Entidad")
-      //   console.log(entidad)
-      //   var myList:Array<any>;
-
-      //   myList = entidad
-
-      //   console.log("My list")
-      //   console.log(myList)
-
-      //   try {
-      //     this.entidad = entidad[0];
-      //     this.Nombre = this.entidad.Nombre;
-      //     this.Descripcion  = this.entidad.Descripcion;
-      //     this.Correo  = this.entidad.Correo;
-      //     this.PaginaWeb  = this.entidad.PaginaWeb;
-      //     this.Telefono  = this.entidad.Telefono;
-      //     this.UrlImagen  = this.entidad.UrlImagen;
-      //     loading.dismiss();
-          
-      //   } 
-      //   catch (error)
-      //     {
-      //       loading.dismiss();
-      //       this.hayError = true;
-      //       console.log(error)
-      //     }
-
-      // });
     }
 
     MostrarSucursales()
     {
-      this.fireBaseService.ObteneSucursales(this.negocio.Entidad).valueChanges().subscribe(entidad =>
+      this.fireBaseService.ObteneSucursales(this.negocio).valueChanges().subscribe(entidad =>
       {
         this.Sucursales = entidad;
       })
@@ -140,14 +109,14 @@ export class NegocioDescripcionPage {
        {
         this.fireBaseService.QuitarFavorito(this.negocio);
         this.Favorito = "NoEsFavorito";
-        this.fireBaseService.RegistrarOtroFavorito(this.negocio.Entidad, false)
+        this.fireBaseService.RegistrarOtroFavorito(this.negocio, false)
         this.showMessage("Removido de favoritos");
        }
        else
        {
         this.fireBaseService.AgregarFavorito(this.negocio);
         this.Favorito = "EsFavorito"
-        this.fireBaseService.RegistrarOtroFavorito(this.negocio.Entidad)
+        this.fireBaseService.RegistrarOtroFavorito(this.negocio)
         this.showMessage("Agregado a favoritos");
        }
 
@@ -161,7 +130,7 @@ export class NegocioDescripcionPage {
           this.favoritos = favoritos;
           this.Favorito = "NoEsFavorito";
           this.favoritos.forEach(favorito => {
-            if (favorito.Entidad == this.negocio.Entidad)
+            if (favorito == this.negocio)
               {
                 this.Favorito = "EsFavorito";
               }
@@ -208,7 +177,7 @@ export class NegocioDescripcionPage {
 
     UnaVisitaMas()
     {
-      this.fireBaseService.RegistrarOtraVisita(this.negocio.Entidad)
+      this.fireBaseService.RegistrarOtraVisita(this.negocio)
     }
 
 

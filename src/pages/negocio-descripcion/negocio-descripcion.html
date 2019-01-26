@@ -4,11 +4,11 @@
   <ion-navbar>
     <ion-title>{{entidad.Nombre || Title}}</ion-title>
 
-    <ion-buttons *ngIf="!hayError"  end (click)="GuardarLocal()">
+    <!-- <ion-buttons *ngIf="!hayError"  end (click)="GuardarLocal()">
       <button  ion-button icon-only>
         <ion-icon  name="bookmark" [id]="Guardar"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
     
     <ion-buttons *ngIf="!hayError" end (click)="AgregarQuitarFavorito()">
         <button  ion-button icon-only>

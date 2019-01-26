@@ -37,7 +37,7 @@ export class NegociosPage {
 
   ver_negocio(negocio)
   {
-    this.navCtrl.push(this.negocioDescripcionPage,{negocio:negocio});
+    this.navCtrl.push(this.negocioDescripcionPage,{negocio:negocio.Entidad});
   }
 
   buscar(ev: any) 
