@@ -22,7 +22,7 @@ export class HomePage {
   )
     {
       this.MostrarRubros();
-      this.fireBaseService.EntidadesMasVisitadas();
+      //this.Ciudades()
     }
 
   ver_rubro(rubro)
@@ -49,5 +49,17 @@ export class HomePage {
       });
   }
   
+  Ciudades()
+  {
+    this.fireBaseService.ObtenerCiudades().once("value").then((ciudades)=>
+    {
+      console.log("Ciudades")
+      console.log(ciudades.val())
+      ciudades.forEach(element => {
+        console.log(element.val().Nombre, element.key )
+      });
+    })
+  }
+
 
 }

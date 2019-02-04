@@ -14,6 +14,8 @@ import { WelcomePage } from "../pages/welcome/welcome";
 import { IniciarSesionPage  } from "../pages/iniciar-sesion/iniciar-sesion";
 import { RegistrarsePage } from "../pages/registrarse/registrarse";
 import { PopularesPage  } from "../pages/populares/populares";
+import { GoogleMapsPage } from '../pages/google-maps/google-maps';
+import { SucursalesPage } from '../pages/sucursales/sucursales';
 
 //
 import { StatusBar } from '@ionic-native/status-bar';
@@ -30,6 +32,7 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AlmacenamientoServiceProvider } from '../providers/almacenamiento-service/almacenamiento-service';
 import { IonicStorageModule } from "@ionic/storage";
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { importType } from '@angular/compiler/src/output/output_ast';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAX78S4dACcaRm3Jzsdq--kB9WeDVLITPE",
@@ -55,6 +58,8 @@ const firebaseConfig = {
     IniciarSesionPage,
     RegistrarsePage,
     PopularesPage,
+    GoogleMapsPage,
+    SucursalesPage,
 
   ],
   imports: [
@@ -78,7 +83,9 @@ const firebaseConfig = {
     WelcomePage,
     IniciarSesionPage,
     RegistrarsePage,
-    PopularesPage
+    PopularesPage,
+    GoogleMapsPage,
+    SucursalesPage
   ],
   providers: [
     StatusBar,

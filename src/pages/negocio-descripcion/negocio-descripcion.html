@@ -46,38 +46,85 @@
 
 <ion-content style="background-color: #f4f4f4" *ngIf="!hayError" >
 
-    <ion-card>
-        <!-- <img src="{{UrlImagen}}"/> -->
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/>
-        <ion-card-content>
-          <ion-card-title>
-              {{entidad.Nombre}}
-            </ion-card-title>
-          <p>
-          {{entidad.Descripcion}}
-          </p>
+  <ion-card>      
 
-          <ion-list>
+        <!-- <img src="{{UrlImagen}}"/> -->
+        <!-- <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/> -->
+        <ion-card-content>
+          <ion-card-title text-center>
+            <h1>
+                {{entidad.Nombre}}
+            </h1>  
+            </ion-card-title>
+              <h2 text-center>
+                {{entidad.Lema}}
+
+              </h2>
+            
+          <ion-list text-wrap>
+
+            <ion-item >
+                <ion-icon name="subway" item-start style="color:#17a2b8"></ion-icon>
+                
+                {{entidad.Direccion}}
+            </ion-item>
+
+            <ion-item>
+                <ion-icon name="call" item-start style="color:#17a2b8"></ion-icon>
+                  <a href="tel:{{entidad.Telefono}}"> {{entidad.Telefono}}</a>
+                  
+            </ion-item>
               <ion-item>
-                <ion-icon name="mail" item-start></ion-icon>
+                <ion-icon name="mail" item-start style="color:#17a2b8"></ion-icon>
                   {{entidad.Correo}}
               </ion-item>
-              <ion-item>
-                  <ion-icon name="call" item-start></ion-icon>
-                    {{entidad.Telefono}}
+              <ion-item *ngIf="entidad.ServicioADomicilio">
+                  <ion-icon name="home" item-start style="color:#17a2b8"></ion-icon>
+                    Servicio A Domicilio
+                    <ion-icon name="checkmark" color="secondary" item-end style="font-size: 4rem;"></ion-icon>
               </ion-item>
+
               <ion-item>
-                  <ion-icon name="compass" item-start></ion-icon>
+                  <ion-icon name="compass" item-start style="color:#17a2b8"></ion-icon>
                     {{entidad.PaginaWeb}}
               </ion-item>
+
+              <ion-item>
+                  <ion-icon name="briefcase" item-start style="color:#17a2b8"></ion-icon>
+                    {{entidad.Negocio}}
+              </ion-item>
+
+              <ion-item>
+                <ion-icon name="eye" item-start style="color:#17a2b8"></ion-icon>
+                  Visitas : {{totalVisitas}}
+            </ion-item>
+            <ion-item>
+              <ion-icon name="star" item-start style="color:#17a2b8"></ion-icon>
+                Favoritos : {{totalFavoritos}}
+            </ion-item>                          
+            <ion-item >
+                <button ion-button icon-start block large color="light" (click)="ver_sucursales()">
+                    <ion-icon name="home"></ion-icon>
+                    Sucursales
+                  </button>
+            </ion-item>
+            <ion-item *ngIf="monstrarMapa" >
+                  <button ion-button icon-start block large color="light" (click)="ver_mapa()">
+                    <ion-icon name="send"></ion-icon>
+                    Mapa
+                  </button>
+            </ion-item>
           </ion-list>      
 
+            <p padding>
+                {{entidad.Descripcion}}
+            </p>
         </ion-card-content>
       </ion-card>
 
       
 
-      <div padding>
+      <!-- <div padding>
 
           <ion-segment [(ngModel)]="pet">
             <ion-segment-button value="kittens">
@@ -163,6 +210,6 @@
                 
           </ion-list>
 
-        </div>
+        </div> -->
 
 </ion-content>

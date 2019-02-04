@@ -37,12 +37,21 @@
     
   <ion-list>
 
+    <ion-list *ngIf="hayRegistrosParaMostrar" >
+      <ion-item>
+        <ion-label>Ciudad</ion-label>
+        <ion-select [(ngModel)]="ciudadSelected" (ionChange)="buscar($event)">
+          <ion-option *ngFor="let ciudad of ciudades" value="{{ciudad.Nombre}}">{{ciudad.Nombre}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+
   <ion-item-sliding #item *ngFor="let negocio of entidadesList">
     
     <ion-item (click)="ver_negocio(negocio)">
           <ion-avatar item-start>
             <img src="../../assets/imgs/SubRubros/search2.svg">
-            <!-- <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png"> -->
           </ion-avatar>
           <h2>{{negocio.Nombre}}</h2>
           <p>{{negocio.Descripcion}}</p>

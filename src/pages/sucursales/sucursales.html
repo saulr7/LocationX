@@ -1,0 +1,63 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title> {{entidadId}} - sucursales</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f4f4f4">
+
+    <ion-card *ngFor="let sucursal of sucursales" >
+
+       <h1 text-center>Primera Calle</h1>
+        <ion-item text-wrap>
+            <ion-icon name="train" item-start large></ion-icon>
+          <h2>Dirección:</h2>
+          <p> {{sucursal.Direccion}} </p>
+        </ion-item>
+
+        <ion-item>
+            <ion-icon name="call" item-start large ></ion-icon>
+            <h2>Telélfono:</h2>
+            <a href="tel:{{sucursal.Telefono}}"> {{sucursal.Telefono}}</a>
+        </ion-item>
+        
+        <ion-item>
+        
+          <h2>
+              Horarios: 
+          </h2>
+
+        </ion-item>
+
+        <ion-item>
+            <span item-start>Lunes A Juves: </span>
+            <span item-start>{{sucursal.Horarios.LunesAViernes}}</span>
+        </ion-item>
+        <ion-item>
+            <span item-start>Viernes: </span>
+            <span item-start>{{sucursal.Horarios.Viernes}}</span>
+        </ion-item>
+        <ion-item>
+            <span item-start>Sábados: </span>
+            <span item-start>{{sucursal.Horarios.Sabados}}</span>
+        </ion-item>
+        <ion-item>
+            <span item-start>Domingos: </span>
+            <span item-start>{{sucursal.Horarios.Domingos}}</span>
+        </ion-item>        
+
+        <ion-item>
+          <span item-start>18 min</span>
+          <span item-start>(2.6 mi)</span>
+          <button ion-button icon-start clear item-end>
+            <ion-icon name="navigate"></ion-icon>
+            Ver
+          </button>
+        </ion-item>
+      
+      </ion-card>
+</ion-content>

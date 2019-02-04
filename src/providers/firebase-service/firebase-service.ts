@@ -88,6 +88,25 @@ export class FirebaseServiceProvider {
     }) 
   }
 
+  public ObtenerVisitas(entidad:string)
+  {
+    if(!entidad)
+    return;
+
+    return this.afDB.database.ref("/Estadisticas/Metricas/Visitas/"+entidad);
+  
+  }
+
+  public ObtenerConteoFavoritos(entidad:string)
+  {
+  
+    if(!entidad)
+      return;
+
+    return this.afDB.database.ref("/Estadisticas/Metricas/Favoritos/"+entidad);
+
+  }
+
   public RegistrarOtroFavorito(entidad:string, sumar:boolean=true)
   {
     if(!entidad)
@@ -121,6 +140,18 @@ export class FirebaseServiceProvider {
     .orderByValue().limitToLast(20)
     .once("value")
 
+  }
+
+  public ObtenerCiudades()
+  {
+    return this.afDB.database.ref("/Ciudades")
+  }
+
+  public obtener_sucursales(entidadId)
+  {
+    if(!entidadId)
+      return
+    return this.afDB.database.ref("/Sucursales/"+entidadId)
   }
 
 }

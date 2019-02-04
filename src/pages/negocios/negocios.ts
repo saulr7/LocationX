@@ -16,8 +16,10 @@ export class NegociosPage {
   subRubroNombre:string;
   hayRegistrosParaMostrar:boolean = true;
 
-  public entidadesList:Array<any>;
-  public loadedEntidadesList:Array<any>;
+  entidadesList:Array<any>;
+  loadedEntidadesList:Array<any>;
+  ciudades:any;
+  ciudadSelected:any
   public entidadesRef:firebase.database.Reference;
 
   negocioDescripcionPage= NegocioDescripcionPage;
@@ -29,6 +31,7 @@ export class NegociosPage {
   {
       this.subRubroNombre = navParams.get('subRubro')
       this.MostrarNegocios();
+      this.Ciudades()
     }
 
   ionViewDidLoad() {
@@ -44,21 +47,32 @@ export class NegociosPage {
   {
     this.initializeItems();
 
-    var terminoBusqueda = ev.srcElement.value;
+    var terminoBusqueda = (ev.srcElement) ? ev.srcElement.value : "" ;
 
-      if (!terminoBusqueda) {
-        return;
-      }
+      // if (!terminoBusqueda)
+      //     return;
+      
       this.entidadesList = this.entidadesList.filter((v) => {
         
+
         if(v.Nombre && terminoBusqueda) 
         {
-          if (v.Nombre.toLowerCase().indexOf(terminoBusqueda.toLowerCase()) > -1
-           || v.Descripcion.toLowerCase().indexOf(terminoBusqueda.toLowerCase()) > -1) 
+          if ((v.Nombre.toLowerCase().indexOf(terminoBusqueda.toLowerCase()) > -1
+           || v.Descripcion.toLowerCase().indexOf(terminoBusqueda.toLowerCase()) > -1)
+           && this.filtrarCiudad(v.Ciudades)     ) 
           {
             return true;
           }
-          return false;
+          else{
+            return false;
+          }
+        }
+        if(this.ciudadSelected)
+        {
+          if (this.filtrarCiudad(v.Ciudades)   ) 
+            return true;
+          else
+            return false;
         }
       });
 
@@ -77,14 +91,12 @@ export class NegociosPage {
   
     try {
       
-      // this.entidadesRef = this.firebaseService.afDB.database.ref('/Negocios/'+this.subRubroNombre);
-      // this.entidadesRef.on('value', entidadesList => {
-      
       this.firebaseService.ObtenerNegocios(this.subRubroNombre).on('value', entidadesList => 
       {
         if (!entidadesList.val() )
         {
           this.hayRegistrosParaMostrar = false;
+          loading.dismiss();
           return;
         }
         let Entidades = [];
@@ -102,22 +114,58 @@ export class NegociosPage {
     {
       loading.dismiss();
     }
-
-
-    // this.firebaseService.ObtenerNegocios(this.subRubroNombre).valueChanges().subscribe(negocios =>
-    //   {
-    //     this.negocios = negocios;
-    //     if (!this.negocios[0] )
-    //     {
-    //       this.hayRegistrosParaMostrar = false;
-    //     }
-    //     loading.dismiss();
-    //   });
   }
   
 
   initializeItems(): void {
     this.entidadesList = this.loadedEntidadesList;
+  }
+
+  Ciudades()
+  {
+    this.firebaseService.ObtenerCiudades().once("value").then((ciudades)=>
+    {
+
+      var i = 0;
+      var listaCiudades = [];
+
+      ciudades.forEach(element => {
+        if (!element.val().Activo)
+          return
+        var ciudad = { Nombre: "", Id : ""}
+        ciudad.Nombre = element.val().Nombre;
+        ciudad.Id = element.key;
+        listaCiudades[i] = ciudad
+        i++;
+      });
+      this.ciudades = listaCiudades
+    })
+  }
+
+
+  private filtrarCiudad(ciudades)
+  {
+    
+    var seEncontro = false;
+    Object.keys(ciudades).forEach(ciudad =>{
+       if(!this.ciudadSelected)
+          {
+            seEncontro = true
+            return
+          }
+
+       if(seEncontro)
+        return
+
+        if(!ciudad)
+          return;
+
+      if(ciudad.toLowerCase().trim() == this.ciudadSelected.toLowerCase().trim())
+        seEncontro = true;
+      else
+        seEncontro = false;
+    })
+    return seEncontro;
   }
 
 

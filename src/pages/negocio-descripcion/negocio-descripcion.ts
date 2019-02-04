@@ -8,6 +8,11 @@ import { AlmacenamientoServiceProvider } from "../../providers/almacenamiento-se
 import { LoadingController } from "ionic-angular";
 import { ToastController  } from "ionic-angular";
 
+import {GoogleMapsPage} from '../google-maps/google-maps';
+import {SucursalesPage} from '../sucursales/sucursales';
+//Models
+import {IEntidad} from '../../models/IEntidad';
+
 
 @IonicPage()
 @Component({
@@ -20,25 +25,23 @@ export class NegocioDescripcionPage {
   favoritos:any;
   EntidadesGuardadas:any;
 
+  totalFavoritos: number;
+  totalVisitas: number;  
+  
   Sucursales:any;
   Favorito:string;
   Guardar:string;
   hayError:boolean =false;
+  monstrarMapa:boolean= false;
+  googleMapsPage = GoogleMapsPage
+  sucursalesPage = SucursalesPage
 
-
-  entidad = {
-      Nombre: "Titulo"
-    , Descripcion: "Descripcion"
-    , Correo: ""
-    , PaginaWeb:""
-    , Telefono : null
-    , UrlImagen: ""}
-
+  entidad = new IEntidad()
 
   constructor(public navCtrl: NavController
       , public navParams: NavParams
       , public fireBaseService: FirebaseServiceProvider
-      ,public almacenamientoService: AlmacenamientoServiceProvider
+      , public almacenamientoService: AlmacenamientoServiceProvider
       , public loadingCtrl :LoadingController
       , public toastCtrl: ToastController
     ) 
@@ -55,8 +58,10 @@ export class NegocioDescripcionPage {
       this.MostrarSucursales();
       this.EsFavorito()
       this.EstaGuardado()
-      //this.ObtenerVisitas();
+      this.obtener_metricas();
       this.UnaVisitaMas();
+      
+
     }
 
     MostrarEntidad()
@@ -80,6 +85,7 @@ export class NegocioDescripcionPage {
         try
         {
           this.entidad = entidades.val();
+          this.monstrarMapa  = (this.entidad.Cordenadas.Latitud && this.entidad.Cordenadas.Latitud) ? true: false;
           loading.dismiss();
           
         }
@@ -87,7 +93,6 @@ export class NegocioDescripcionPage {
          {
             loading.dismiss();
             this.hayError = true;
-            console.log(error) 
         }
 
     })
@@ -171,7 +176,6 @@ export class NegocioDescripcionPage {
         });
       }).catch((error)=>
       {
-       console.error("Error->:", error) 
       })
     }
 
@@ -191,4 +195,52 @@ export class NegocioDescripcionPage {
     }
 
 
+    ver_mapa()
+    {
+      var params =
+      {
+        Nombre   : this.entidad.Nombre,
+        Latitud  : this.entidad.Cordenadas.Latitud,
+        Longitud : this.entidad.Cordenadas.Longitud
+      }
+      this.navCtrl.push(this.googleMapsPage,{params})
+    }
+
+    obtener_metricas()
+    {
+        this.fireBaseService.ObtenerConteoFavoritos(this.negocio)
+        .once("value" , favoritos =>
+        {
+          var totalFavoritos =  (favoritos.val() ? favoritos.val() : 0 ) +1
+          this.totalFavoritos = totalFavoritos;
+        }) ;
+
+        this.fireBaseService.ObtenerVisitas(this.negocio)
+        .once("value" , visitas =>
+        {
+          var totalVisitas =  (visitas.val() ? visitas.val() : 0 ) +1
+          this.totalVisitas = totalVisitas
+        }) 
+    }
+
+    validar_mostrar_mapa()
+    {
+      if(!this.entidad.Cordenadas)
+        return false
+
+      if(!this.entidad.Cordenadas.Latitud || !this.entidad.Cordenadas.Longitud)
+        return false
+
+      else
+        return true;
+    }
+
+    ver_sucursales()
+    {
+      this.navCtrl.push(this.sucursalesPage,{negocioId : this.negocio})
+    }
+
+
+
 }
+
