@@ -13,25 +13,15 @@
     <ion-list padding-top>
   
       <ion-item  *ngFor="let subRubro of subRubros" (click)="ver_negocio(subRubro)">
-          <ion-avatar item-start>
+          <!-- <ion-avatar item-start>
             <img src="../../assets/imgs/SubRubros/search2.svg">
-          </ion-avatar>
+          </ion-avatar> -->
           <h2>{{subRubro.Nombre}}</h2>
           <ion-icon name="arrow-forward" item-end></ion-icon>
 
 
       </ion-item> 
 
-    <!-- <button ion-item *ngFor="let subRubro of subRubros" (click)="ver_negocio(subRubro)">
-      <ion-thumbnail item-start>
-        <ion-icon style="font-size: 50px; color: #E8BB18;" name="browsers"></ion-icon>
-        <!-- <img src="../../assets/imgs/SubRubros/search.svg"> -->
-        <!-- <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png"> -->
-        
-      <!-- </ion-thumbnail>
-      <h2>{{subRubro.Nombre}}</h2>
-    </button> -->
-  
   </ion-list>
   
 

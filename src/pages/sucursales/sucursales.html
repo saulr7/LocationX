@@ -3,16 +3,27 @@
 
   <ion-navbar>
     <ion-title> {{entidadId}} - sucursales</ion-title>
-  </ion-navbar>
+<!-- 
+    <ion-buttons  end (click)="presentActionSheet()">
+        <button  ion-button icon-only>
+          <ion-icon name="settings"></ion-icon>
+        </button>
+    </ion-buttons> -->
+    
+</ion-navbar>
 
+  
 </ion-header>
 
 
 <ion-content style="background-color: #f4f4f4">
 
-    <ion-card *ngFor="let sucursal of sucursales" >
+    <ion-searchbar  (ionInput)="buscar($event)">      
+    </ion-searchbar>
 
-       <h1 text-center>Primera Calle</h1>
+    <ion-card *ngFor="let sucursal of sucursalesList" >
+
+       <h1 text-center> {{sucursal.Nombre}} </h1>
         <ion-item text-wrap>
             <ion-icon name="train" item-start large></ion-icon>
           <h2>Dirección:</h2>
@@ -21,7 +32,7 @@
 
         <ion-item>
             <ion-icon name="call" item-start large ></ion-icon>
-            <h2>Telélfono:</h2>
+            <h2>Teléfono:</h2>
             <a href="tel:{{sucursal.Telefono}}"> {{sucursal.Telefono}}</a>
         </ion-item>
         
@@ -50,13 +61,19 @@
             <span item-start>{{sucursal.Horarios.Domingos}}</span>
         </ion-item>        
 
-        <ion-item>
-          <span item-start>18 min</span>
+        <ion-item *ngIf="sucursal.Cordenadas">
+          <!-- <span item-start>18 min</span>
           <span item-start>(2.6 mi)</span>
-          <button ion-button icon-start clear item-end>
+         -->
+         <button ion-button icon-start block large color="light" (click)="ver_mapa(sucursal)">
+            <ion-icon name="navigate"></ion-icon>
+            <!-- <ion-icon name="send"></ion-icon> -->
+            Mapa
+          </button>
+          <!-- <button ion-button icon-start clear item-end (click)="ver_mapa(sucursal)">
             <ion-icon name="navigate"></ion-icon>
             Ver
-          </button>
+          </button> -->
         </ion-item>
       
       </ion-card>

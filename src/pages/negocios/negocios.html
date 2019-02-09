@@ -37,10 +37,11 @@
     
   <ion-list>
 
-    <ion-list *ngIf="hayRegistrosParaMostrar" >
+    <ion-list *ngIf="hayRegistrosParaMostrar" style="margin: -1px 0 10px;">
       <ion-item>
         <ion-label>Ciudad</ion-label>
         <ion-select [(ngModel)]="ciudadSelected" (ionChange)="buscar($event)">
+          <ion-option  value="">--Seleccionar--</ion-option>
           <ion-option *ngFor="let ciudad of ciudades" value="{{ciudad.Nombre}}">{{ciudad.Nombre}}</ion-option>
         </ion-select>
       </ion-item>
@@ -50,9 +51,9 @@
   <ion-item-sliding #item *ngFor="let negocio of entidadesList">
     
     <ion-item (click)="ver_negocio(negocio)">
-          <ion-avatar item-start>
+          <!-- <ion-avatar item-start>
             <img src="../../assets/imgs/SubRubros/search2.svg">
-          </ion-avatar>
+          </ion-avatar> -->
           <h2>{{negocio.Nombre}}</h2>
           <p>{{negocio.Descripcion}}</p>
           <ion-icon name="arrow-forward" item-end></ion-icon>

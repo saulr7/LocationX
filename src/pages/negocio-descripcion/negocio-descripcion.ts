@@ -32,7 +32,9 @@ export class NegocioDescripcionPage {
   Favorito:string;
   Guardar:string;
   hayError:boolean =false;
-  monstrarMapa:boolean= false;
+  mostrarMapa:boolean= false;
+  tieneSucursales:boolean = false;
+
   googleMapsPage = GoogleMapsPage
   sucursalesPage = SucursalesPage
 
@@ -60,7 +62,7 @@ export class NegocioDescripcionPage {
       this.EstaGuardado()
       this.obtener_metricas();
       this.UnaVisitaMas();
-      
+      this.tiene_sucursales();
 
     }
 
@@ -85,7 +87,7 @@ export class NegocioDescripcionPage {
         try
         {
           this.entidad = entidades.val();
-          this.monstrarMapa  = (this.entidad.Cordenadas.Latitud && this.entidad.Cordenadas.Latitud) ? true: false;
+          this.mostrarMapa  = (this.entidad.Cordenadas.Latitud && this.entidad.Cordenadas.Latitud) ? true: false;
           loading.dismiss();
           
         }
@@ -238,6 +240,15 @@ export class NegocioDescripcionPage {
     ver_sucursales()
     {
       this.navCtrl.push(this.sucursalesPage,{negocioId : this.negocio})
+    }
+
+    tiene_sucursales()
+    {
+      this.fireBaseService.tiene_sucursales(this.negocio).once("value", (tieneSucursal)=>
+      {
+        if(tieneSucursal.val())
+          this.tieneSucursales = true;
+      })
     }
 
 

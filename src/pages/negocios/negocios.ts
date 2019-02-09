@@ -47,10 +47,18 @@ export class NegociosPage {
   {
     this.initializeItems();
 
-    var terminoBusqueda = (ev.srcElement) ? ev.srcElement.value : "" ;
+    var terminoBusqueda = "";
+    try {
+        terminoBusqueda =  ev.srcElement.value;
+      
+    } catch (error) {
+      terminoBusqueda = ""
+    }
 
-      // if (!terminoBusqueda)
-      //     return;
+    
+
+      if (!terminoBusqueda && !this.ciudadSelected)
+          return;
       
       this.entidadesList = this.entidadesList.filter((v) => {
         

@@ -33,6 +33,7 @@ import { AlmacenamientoServiceProvider } from '../providers/almacenamiento-servi
 import { IonicStorageModule } from "@ionic/storage";
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { importType } from '@angular/compiler/src/output/output_ast';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAX78S4dACcaRm3Jzsdq--kB9WeDVLITPE",
@@ -69,7 +70,8 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -95,7 +97,9 @@ const firebaseConfig = {
     AngularFireStorageModule,
     FirebaseServiceProvider,
     AlmacenamientoServiceProvider,
-    AuthServiceProvider
+    AuthServiceProvider,
+    Geolocation,
+    
   ]
 })
 export class AppModule {}

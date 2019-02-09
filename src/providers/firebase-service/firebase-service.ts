@@ -154,4 +154,11 @@ export class FirebaseServiceProvider {
     return this.afDB.database.ref("/Sucursales/"+entidadId)
   }
 
+  public tiene_sucursales(entidadId)
+  {
+    if(!entidadId)
+      return
+    return this.afDB.database.ref("/Sucursales/"+entidadId).limitToFirst(1)
+  }
+
 }
